@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Link from "next/link"
-import { Input, Switch, useTheme } from "@nextui-org/react";
-import Head from "next/head";
+import { Input, useTheme } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
-import { useTheme as useNextTheme } from 'next-themes'
 import Layout from "@/components/Layout";
 
 
@@ -11,8 +9,7 @@ const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 const Register = () => {
-    const { setTheme } = useNextTheme();
-    const { isDark, type } = useTheme();
+    const { type } = useTheme();
 
 
     const [username, setUsername] = useState('');
@@ -73,13 +70,6 @@ const Register = () => {
     return (
         <Layout title={'Registration Page'}>
             <div className={type === 'dark' ? 'mx-auto p-5 bg-white text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-800 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
-                <div>
-                    The current theme is: {type}
-                    <Switch
-                        checked={isDark}
-                        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
-                    />
-                </div>
                 <ToastContainer theme="colored" />
                 <section className="px-2 md:px-10">
                     <h3 className="text-2xl my-10">ACCOUNT SIGN-UP</h3>
