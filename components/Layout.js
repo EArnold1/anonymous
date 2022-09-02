@@ -1,5 +1,5 @@
 import Head from "next/head";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 
 
 const Layout = ({ title, children }) => {
@@ -8,7 +8,7 @@ const Layout = ({ title, children }) => {
             <Head>
                 <title>{title}</title>
             </Head>
-            <NavBar />
+            {/* <NavBar /> */}
             <div className="container mx-auto pt-20 mb-5">
                 {children}
             </div>
