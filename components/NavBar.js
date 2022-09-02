@@ -32,7 +32,7 @@ const NavBar = () => {
                 <NavBarComp.Link href="/account/dashboard">
                     Dashboard
                 </NavBarComp.Link>
-                <NavBarComp.Link href="/account/dashboard">
+                <NavBarComp.Link href="/account/messages">
                     Messages
                 </NavBarComp.Link>
 
