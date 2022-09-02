@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import ToggleTheme from './ToggleTheme'
-import { Navbar as NavBarComp, Link as UiLink, Text } from "@nextui-org/react"
+import { Navbar as NavBarComp, Text } from "@nextui-org/react"
 import { useTheme } from "@nextui-org/react";
 
 
@@ -20,7 +20,7 @@ const NavBar = () => {
             >
                 <Text b color="inherit">
                     <Link href={'/'}>
-                        ANNONYMOUS
+                        ANONYMOUS
                     </Link>
                 </Text>
             </NavBarComp.Brand>
@@ -29,70 +29,75 @@ const NavBar = () => {
                 variant="highlight-rounded"
                 hideIn="xs"
             >
-                <NavBarComp.Link href="/account/dashboard">
-                    Dashboard
-                </NavBarComp.Link>
-                <NavBarComp.Link href="/account/messages">
-                    Messages
-                </NavBarComp.Link>
-
+                <Link href="/auth/dashboard">
+                    <NavBarComp.Link isActive>
+                        Dashboard
+                    </NavBarComp.Link>
+                </Link>
+                <Link href="/account/messages">
+                    <NavBarComp.Link>
+                        Messages
+                    </NavBarComp.Link>
+                </Link>
             </NavBarComp.Content>
             {/*  */}
             <NavBarComp.Content
             // activeColor={'secondary'}
             // variant="highlight-rounded"
             >
-                <NavBarComp.Link
-                    hideIn="xs"
-                    href="/auth/login">
-                    Login
-                </NavBarComp.Link>
-                <NavBarComp.Link href="/auth/register"
-                    hideIn="xs"
-                >
-                    Register
-                </NavBarComp.Link>
-                <NavBarComp.Link href="/"
-                    hideIn="xs"
-                    className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl' : 'p-3 bg-gray-100 rounded-2xl'}
-                >
-                    Logout
-                </NavBarComp.Link>
+                <Link href="/auth/login">
+                    <NavBarComp.Link hideIn={"xs"}>
+                        Login
+                    </NavBarComp.Link>
+                </Link>
+                <Link href="/auth/register">
+                    <NavBarComp.Link hideIn={"xs"}>
+                        Register
+                    </NavBarComp.Link>
+                </Link>
+                <Link href="/">
+                    <NavBarComp.Link hideIn={"xs"}
+                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl' : 'p-3 bg-gray-100 rounded-2xl'}
+                    >
+                        Logout
+                    </NavBarComp.Link>
+                </Link>
                 <ToggleTheme />
             </NavBarComp.Content>
             <NavBarComp.Collapse>
                 <NavBarComp.CollapseItem
                 >
-                    <UiLink href={'/account/messages'}
+                    <Link
                         color="inherit"
                         css={{
                             minWidth: "100%",
                         }}
+                        href="/account/messages"
                     >
                         Messages
-                    </UiLink>
+                    </Link>
                 </NavBarComp.CollapseItem>
                 <NavBarComp.CollapseItem
                 >
-                    <UiLink href={'/account/dashboard'}
+                    <Link href={'/account/dashboard'}
                         color="inherit"
                         css={{
                             minWidth: "100%",
                         }}
                     >
                         Dashboard
-                    </UiLink>
+                    </Link>
                 </NavBarComp.CollapseItem>
                 <NavBarComp.CollapseItem
                 >
-                    <UiLink href={'/'}
+                    <Link href={'/'}
                         color="inherit"
                         css={{
                             minWidth: "100%",
                         }}
                     >
                         Logout
-                    </UiLink>
+                    </Link>
                 </NavBarComp.CollapseItem>
             </NavBarComp.Collapse>
         </NavBarComp>
