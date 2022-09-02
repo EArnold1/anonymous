@@ -1,13 +1,20 @@
 import { useState } from "react";
 import Link from "next/link"
-import { Input } from "@nextui-org/react";
+import { Input, Switch, useTheme } from "@nextui-org/react";
 import Head from "next/head";
 import { ToastContainer, toast } from 'react-toastify';
+import { useTheme as useNextTheme } from 'next-themes'
+import Layout from "@/components/Layout";
+
 
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 const Register = () => {
+    const { setTheme } = useNextTheme();
+    const { isDark, type } = useTheme();
+
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -64,14 +71,18 @@ const Register = () => {
     }
 
     return (
-        <div className="flex h-screen">
-            <Head>
-                <title>Registration Page</title>
-            </Head>
-            <div className="m-auto p-5 rounded-md bg-gray-800 w-4/5 lg:w-1/3">
+        <Layout title={'Registration Page'}>
+            <div className={type === 'dark' ? 'mx-auto p-5 bg-white text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-800 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
+                <div>
+                    The current theme is: {type}
+                    <Switch
+                        checked={isDark}
+                        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+                    />
+                </div>
                 <ToastContainer theme="colored" />
-                <section className="px-2 md:px-10 text-white">
-                    <h3 className="text-white text-2xl my-10">ACCOUNT SIGN-UP</h3>
+                <section className="px-2 md:px-10">
+                    <h3 className="text-2xl my-10">ACCOUNT SIGN-UP</h3>
                     <form onSubmit={onSubmit} className="grid grid-cols-1 gap-y-10">
                         <Input
                             bordered
@@ -79,23 +90,25 @@ const Register = () => {
                             labelPlaceholder="Username"
                             name="username"
                             status={usernameErr}
-                            className="bg-white"
+                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <Input bordered
+                        <Input
+                            bordered
                             clearable
                             labelPlaceholder="Email"
                             name="email"
                             status={emailErr}
-                            className="bg-white"
+                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <Input.Password bordered
+                        <Input.Password
+                            bordered
                             labelPlaceholder="Password"
                             name="password"
-                            className="bg-white"
+                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
                             status={passwordErr}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -103,8 +116,8 @@ const Register = () => {
 
                         <input type="submit"
                             value="Register"
-                            className="my-5 w-full py-2 text-black bg-white rounded-md hover:bg-stone-700
-                         hover:text-blue-500 hover:cursor-pointer"
+                            className={`my-5 w-full py-2   rounded-md hover:bg-stone-700
+                         hover:text-blue-500 hover:cursor-pointer ${type === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
                         />
                     </form>
                     <div className="my-5 text-center">
@@ -114,13 +127,13 @@ const Register = () => {
                             </Link>
                         </p>
                         <br />
-                        <p className="text-xs text-gray-200">
+                        <p className="text-xs text-gray-500">
                             By using this service, you agree to our Privacy Policy, Terms of Service and any related policies.
                         </p>
                     </div>
                 </section>
             </div>
-        </div>
+        </Layout>
     )
 }
 
