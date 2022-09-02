@@ -69,7 +69,7 @@ const Register = () => {
 
     return (
         <Layout title={'Registration Page'}>
-            <div className={type === 'dark' ? 'mx-auto p-5 bg-white text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-800 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
+            <div className={type !== 'dark' ? 'mx-auto p-5 bg-zinc-200 text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-900 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
                 <ToastContainer theme="colored" />
                 <section className="px-2 md:px-10">
                     <h3 className="text-2xl my-10">ACCOUNT SIGN-UP</h3>
@@ -80,7 +80,7 @@ const Register = () => {
                             labelPlaceholder="Username"
                             name="username"
                             status={usernameErr}
-                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
+                            className={type !== 'dark' ? 'bg-white' : 'bg-black'}
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
@@ -90,7 +90,7 @@ const Register = () => {
                             labelPlaceholder="Email"
                             name="email"
                             status={emailErr}
-                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
+                            className={type !== 'dark' ? 'bg-white' : 'bg-black'}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -98,7 +98,7 @@ const Register = () => {
                             bordered
                             labelPlaceholder="Password"
                             name="password"
-                            className={type === 'dark' ? 'bg-white border-2' : 'bg-black'}
+                            className={type !== 'dark' ? 'bg-white' : 'bg-black'}
                             status={passwordErr}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
