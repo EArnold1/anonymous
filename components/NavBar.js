@@ -8,7 +8,7 @@ const NavBar = ({ pagePath }) => {
     const { type } = useTheme();
 
     return (
-        <NavBarComp isBordered variant="sticky">
+        <NavBarComp isBordered maxWidth={'fluid'} variant="sticky">
             <NavBarComp.Toggle showIn="xs" />
             <NavBarComp.Brand
                 css={{
@@ -25,7 +25,7 @@ const NavBar = ({ pagePath }) => {
             </NavBarComp.Brand>
             <NavBarComp.Content
                 activeColor="secondary"
-                variant="highlight-rounded"
+                variant="highlight-solid-rounded"
                 hideIn="xs"
             >
                 <Link href="/account/dashboard">
@@ -42,7 +42,7 @@ const NavBar = ({ pagePath }) => {
             {/*  */}
             <NavBarComp.Content
                 activeColor={'primary'}
-                variant="highlight-rounded"
+                variant="highlight-solid-rounded"
             >
                 <Link href="/auth/login">
                     <NavBarComp.Link
@@ -61,7 +61,7 @@ const NavBar = ({ pagePath }) => {
                 <Link href="/">
                     <NavBarComp.Link
                         hideIn={"xs"}
-                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl mx-2 hidden md:flex' : 'p-3 bg-gray-100 rounded-2xl mx-2 hidden md:flex'}
+                        className={type === 'dark' ? 'p-2 bg-red-600 rounded-2xl mx-2 hidden md:flex' : 'p-2 bg-red-100 rounded-2xl mx-2 hidden md:flex'}
                     >
                         Logout
                     </NavBarComp.Link>

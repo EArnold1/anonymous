@@ -1,11 +1,12 @@
 import Head from "next/head";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-
+import { useRouter } from "next/router";
 
 const Layout = ({ title, children, pagePath }) => {
+    const router = useRouter();
     return (
-        <div className="relative lg:h-screen">
+        <div className={`${router.pathname === '/' ? 'relative lg:h-full' : 'relative lg:h-screen'}`}>
             <Head>
                 <title>{title}</title>
             </Head>
