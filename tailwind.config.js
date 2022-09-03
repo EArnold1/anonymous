@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      custom: ['Titillium\\ Web', 'sans-serif']
+    },
   },
   plugins: [],
 }
