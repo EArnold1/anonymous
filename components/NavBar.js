@@ -43,18 +43,17 @@ const NavBar = ({ pagePath }) => {
             <NavBarComp.Content
                 activeColor={'primary'}
                 variant="highlight-rounded"
-                hideIn={"xs"}
             >
                 <Link href="/auth/login">
                     <NavBarComp.Link
-                        hideIn={"xs"}
+                        className="hidden md:flex"
                         isActive={'/auth/login' === pagePath}>
                         Login
                     </NavBarComp.Link>
                 </Link>
                 <Link href="/auth/register">
                     <NavBarComp.Link
-                        hideIn={"xs"}
+                        className="hidden md:flex"
                         isActive={'/auth/register' === pagePath}>
                         Register
                     </NavBarComp.Link>
@@ -62,14 +61,16 @@ const NavBar = ({ pagePath }) => {
                 <Link href="/">
                     <NavBarComp.Link
                         hideIn={"xs"}
-                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl mx-2' : 'p-3 bg-gray-100 rounded-2xl mx-2'}
+                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl mx-2 hidden md:flex' : 'p-3 bg-gray-100 rounded-2xl mx-2 hidden md:flex'}
                     >
                         Logout
                     </NavBarComp.Link>
                 </Link>
                 <ToggleTheme />
             </NavBarComp.Content>
-            <NavBarComp.Collapse>
+            <NavBarComp.Collapse
+                showIn={"xs"}
+            >
                 <NavBarComp.CollapseItem
                 >
                     <Link

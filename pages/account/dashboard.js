@@ -11,7 +11,6 @@ const dashboard = () => {
 
     const router = useRouter();
 
-    console.log(router.pathname)
     return (
         <Layout title={'Dashboard Page'} pagePath={router.pathname}>
             <div className="px-3">
@@ -34,7 +33,7 @@ const dashboard = () => {
                 </p>
                 <br />
                 {/* latest message */}
-                <section>
+                <section className="order py-8">
                     <Card className="border-none hidden">
                         <Card.Header>
                             <p className="font-bold">No message yet, share your link to your friends 😉.</p>
@@ -87,6 +86,8 @@ const dashboard = () => {
                     </Card>
                     <br />
                     <DasboardBtnComp />
+                    {/*  */}
+                    <div className="border-b-2 border-cyan-300 mt-5"></div>
                 </section>
             </div>
         </Layout>
