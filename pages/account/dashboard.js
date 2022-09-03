@@ -68,7 +68,7 @@ const dashboard = () => {
                                 Annonymous - [ 2022-8-15 ]
                             </p>
                         </Card.Body>
-                        <Card.Footer className="gap-x-3">
+                        <Card.Footer className="gap-x-3 justify-between lg:justify-start">
                             {/* share post */}
                             <button className={`${type === 'dark' ? 'bg-purple-600' : 'bg-purple-200'} py-2 rounded-md px-4`}>
                                 Share now
