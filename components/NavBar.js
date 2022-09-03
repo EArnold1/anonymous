@@ -29,7 +29,7 @@ const NavBar = () => {
                 variant="highlight-rounded"
                 hideIn="xs"
             >
-                <Link href="/auth/dashboard">
+                <Link href="/account/dashboard">
                     <NavBarComp.Link isActive>
                         Dashboard
                     </NavBarComp.Link>
