@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
 import ToggleTheme from './ToggleTheme'
 import { Navbar as NavBarComp, Text } from "@nextui-org/react"
 import { useTheme } from "@nextui-org/react";
 
 
-const NavBar = () => {
+const NavBar = ({ pagePath }) => {
     const { type } = useTheme();
 
     return (
@@ -30,34 +29,40 @@ const NavBar = () => {
                 hideIn="xs"
             >
                 <Link href="/account/dashboard">
-                    <NavBarComp.Link isActive>
+                    <NavBarComp.Link isActive={'/account/dashboard' === pagePath}>
                         Dashboard
                     </NavBarComp.Link>
                 </Link>
                 <Link href="/account/messages">
-                    <NavBarComp.Link>
+                    <NavBarComp.Link isActive={'/account/messages' === pagePath}>
                         Messages
                     </NavBarComp.Link>
                 </Link>
             </NavBarComp.Content>
             {/*  */}
             <NavBarComp.Content
-            // activeColor={'secondary'}
-            // variant="highlight-rounded"
+                activeColor={'primary'}
+                variant="highlight-rounded"
+                hideIn={"xs"}
             >
                 <Link href="/auth/login">
-                    <NavBarComp.Link hideIn={"xs"}>
+                    <NavBarComp.Link
+                        hideIn={"xs"}
+                        isActive={'/auth/login' === pagePath}>
                         Login
                     </NavBarComp.Link>
                 </Link>
                 <Link href="/auth/register">
-                    <NavBarComp.Link hideIn={"xs"}>
+                    <NavBarComp.Link
+                        hideIn={"xs"}
+                        isActive={'/auth/register' === pagePath}>
                         Register
                     </NavBarComp.Link>
                 </Link>
                 <Link href="/">
-                    <NavBarComp.Link hideIn={"xs"}
-                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl' : 'p-3 bg-gray-100 rounded-2xl'}
+                    <NavBarComp.Link
+                        hideIn={"xs"}
+                        className={type === 'dark' ? 'p-3 bg-gray-600 rounded-2xl mx-2' : 'p-3 bg-gray-100 rounded-2xl mx-2'}
                     >
                         Logout
                     </NavBarComp.Link>

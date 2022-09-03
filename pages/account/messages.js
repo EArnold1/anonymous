@@ -1,12 +1,16 @@
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useTheme, Card } from "@nextui-org/react";
+import { useRouter } from "next/router"
+
 
 const messages = () => {
     const { type } = useTheme();
 
+    const router = useRouter();
+
     return (
-        <Layout title={'Messages'}>
+        <Layout title={'Messages'} pagePath={router.pathname}>
             <div className="px-3">
                 <h2 className="text-2xl">My Messages</h2>
                 <section className="my-20">

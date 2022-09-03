@@ -8,8 +8,12 @@ import DasboardBtnComp from "@/components/DasboardBtnComp";
 
 const dashboard = () => {
     const { type } = useTheme()
+
+    const router = useRouter();
+
+    console.log(router.pathname)
     return (
-        <Layout title={'Dashboard Page'}>
+        <Layout title={'Dashboard Page'} pagePath={router.pathname}>
             <div className="px-3">
                 <User
                     bordered

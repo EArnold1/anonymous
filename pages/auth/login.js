@@ -3,11 +3,13 @@ import Link from "next/link"
 import { Input, useTheme } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
+import { useRouter } from "next/router";
 
 
 const Login = () => {
     const { type } = useTheme();
 
+    const router = useRouter()
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -55,7 +57,7 @@ const Login = () => {
     }
 
     return (
-        <Layout title={'Login Page'}>
+        <Layout title={'Login Page'} pagePath={router.pathname}>
             <div className={type !== 'dark' ? 'mx-auto p-5 bg-zinc-200 text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-900 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
                 <ToastContainer theme="colored" />
                 <section className="px-2 md:px-10">
