@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router"
 import { Textarea } from "@nextui-org/react";
 import { IoRocket } from 'react-icons/io5'
 import { useTheme, Card } from "@nextui-org/react";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const MessageComp = () => {
@@ -10,14 +12,36 @@ const MessageComp = () => {
 
     const { type } = useTheme();
 
+    const [textField, setTextField] = useState('');
+
+    const sendMessageFunc = () => {
+        if (textField === '') {
+            toast.warning('Please type in a message');
+            return
+        }
+
+        if (textField.length < 10) {
+            toast.error('Message is too short');
+            return
+        }
+        if (textField.replace(/\s/g, '').length < 10) {
+            toast.error('Invalid message');
+            return
+        }
+
+        console.log(textField)
+
+    }
+
     return (
         <Layout title={'Send Message'}>
             <div className="px-3">
+                <ToastContainer theme="colored" />
                 <h2 className="text-center text-xl lg:text-3xl mb-8 font-semibold">
                     Send a message anonymously to {router.query.username}
                 </h2>
-                <div className="flex h-96">
-                    {/* <section className="mb-5 mx-auto my-20 md:my-52 lg:my-auto w-4/5">
+                <div>
+                    <section className="mb-5 mx-auto my-16 md:my-40 lg:my-44 w-4/5">
                         <Card className="border-none p-3">
                             <Card.Header>
                                 <p className="mb-10">Say Something About Me</p>
@@ -27,12 +51,16 @@ const MessageComp = () => {
                                 rows={4}
                                 underlined
                                 color="primary"
+                                value={textField}
+                                onChange={(e) => setTextField(e.target.value)}
                                 labelPlaceholder={`Leave a message for >${router.query.username}< here....`}
                             />
 
                             <button
                                 className={`flex gap-x-3 justify-center w-full my-5 py-2 rounded-md 
-                        ${type === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}>
+                        ${type === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`}
+                                onClick={sendMessageFunc}
+                            >
                                 <span>Send Message</span>
                                 <span className="my-auto"> <IoRocket /> </span>
                             </button>
@@ -46,8 +74,8 @@ const MessageComp = () => {
                                 </p>
                             </Card.Footer>
                         </Card>
-                    </section> */}
-                    <section className="mb-5 mx-auto my-20 md:my-52 lg:my-auto w-4/5">
+                    </section>
+                    {/* <section className="mb-5 mx-auto my-20 md:my-52 lg:my-auto w-4/5">
                         <Card className="p-1 border-none">
                             <Card.Header className="justify-center">
                                 <h1 className="text-3xl">Oops..!</h1>
@@ -74,7 +102,7 @@ const MessageComp = () => {
                                 </button>
                             </Card.Body>
                         </Card>
-                    </section>
+                    </section> */}
                 </div>
             </div>
         </Layout>
