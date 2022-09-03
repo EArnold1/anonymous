@@ -7,7 +7,7 @@ const DasboardBtnComp = () => {
     const { type } = useTheme()
     return (
         <div className="my-8">
-            <Card className="hover:bg-transparent">
+            <Card>
                 <Card.Body>
                     <div className="grid gird-cols-1 lg:grid-cols-4 gap-5">
                         <Link href={'/account/messages'}>

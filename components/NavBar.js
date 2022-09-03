@@ -19,7 +19,7 @@ const NavBar = ({ pagePath }) => {
                     },
                 }}
             >
-                <Text b color="inherit">
+                <Text h1 size={30} b color="inherit">
                     <Link href={'/'}>
                         ANONYMOUS
                     </Link>
