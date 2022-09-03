@@ -2,10 +2,12 @@ import Link from 'next/link'
 import ToggleTheme from './ToggleTheme'
 import { Navbar as NavBarComp, Text } from "@nextui-org/react"
 import { useTheme } from "@nextui-org/react";
-
+import { useRouter } from 'next/router';
 
 const NavBar = ({ pagePath }) => {
     const { type } = useTheme();
+
+    const router = useRouter()
 
     return (
         <NavBarComp isBordered maxWidth={'fluid'} variant="sticky">
@@ -38,6 +40,14 @@ const NavBar = ({ pagePath }) => {
                         Messages
                     </NavBarComp.Link>
                 </Link>
+                {
+                    router.pathname === '/' &&
+                    <Link href="/contact">
+                        <NavBarComp.Link>
+                            Contact
+                        </NavBarComp.Link>
+                    </Link>
+                }
             </NavBarComp.Content>
             {/*  */}
             <NavBarComp.Content

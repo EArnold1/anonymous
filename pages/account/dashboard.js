@@ -19,7 +19,7 @@ const dashboard = () => {
                     src="https://i.pravatar.cc/150?u=a042581f4e29026704d" // change image
                     name="aarnold's profile" //dynamic
                     color="primary"
-                    className="mb-5"
+                    className="mb-5 px-0"
                     size="xl"
                     css={{
                         fontSize: '$2xl'
