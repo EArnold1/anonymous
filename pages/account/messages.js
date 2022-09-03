@@ -14,11 +14,26 @@ const messages = () => {
             <div className="px-3">
                 <h2 className="text-2xl">My Messages</h2>
                 <section className="my-20">
-                    <Link href={'/account/dashboard'}>
-                        <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
-                            Go Back
-                        </a>
-                    </Link>
+                    <div className="flex justify-between">
+                        <Link href={'/account/dashboard'}>
+                            <a className={type === 'dark' ? 'px-3 py-2 bg-yellow-700 rounded-md' : 'px-3 py-2 bg-yellow-200 rounded-md'}>
+                                Go Back
+                            </a>
+                        </Link>
+                        {/* show if user has messages */}
+                        <section className="flex gap-x-3">
+                            <Link href={'/account/dashboard'}>
+                                <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
+                                    Prev
+                                </a>
+                            </Link>
+                            <Link href={'/account/dashboard'}>
+                                <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
+                                    Next
+                                </a>
+                            </Link>
+                        </section>
+                    </div>
                     <Card className="border border-blue-500 rounded-md my-8 hidden">
                         <Card.Body>
                             Oops! 😅 No one has sent you a message! Share your profile link and check back later again!

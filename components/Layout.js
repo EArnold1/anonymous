@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 
 const Layout = ({ title, children, pagePath }) => {
     const router = useRouter();
+    const screenHeight = router.pathname === '/' || router.pathname === '/account/messages' ? 'relative lg:h-full' : 'relative lg:h-screen';
     return (
-        <div className={`${router.pathname === '/' ? 'relative lg:h-full' : 'relative lg:h-screen'}`}>
+        <div className={screenHeight}>
             <Head>
                 <title>{title}</title>
             </Head>
