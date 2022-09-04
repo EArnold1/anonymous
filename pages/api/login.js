@@ -11,31 +11,31 @@ export default async function handler(req, res) {
 
     const { username, password } = req.body;
 
-    const config = {
+
+    const body = JSON.stringify({ username, password });
+
+    const resData = await fetch(`${API_URL}/api/auth`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
-    }
+        },
+        body,
+    });
 
-    try {
-        const body = JSON.stringify({ username, password });
+    const data = await resData.json();
 
-        const resData = await axios.post(`${API_URL}/api/auth`, body, config);
+    res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/'
+    }))
 
-        const data = await resData.data;
-
-        res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 7,
-            path: '/'
-        }))
-
-        res.json({ data })
-
-    } catch (err) {
-        const errors = err.response.data
-        res.status(500).json({ errors: errors.errors[0].msg })
+    // res.json({ data })
+    if (resData.ok) {
+        res.status(200).json({ data })
+    } else {
+        res.status(data.statusCode).json({ data })
     }
 }
