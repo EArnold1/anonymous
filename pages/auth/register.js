@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import AuthContext from "context/AuthContext";
-import { AuthProvider } from "context/AuthContext";
 
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 

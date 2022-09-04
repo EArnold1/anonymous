@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Link from "next/link"
 import { Input, useTheme } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
+import AuthContext from "context/AuthContext";
 
 
 const Login = () => {
+    const { error, login } = useContext(AuthContext);
+
     const { type } = useTheme();
 
     const router = useRouter()
@@ -44,7 +47,7 @@ const Login = () => {
             return
         }
 
-        console.log({ username, password })
+        login({ username, password })
     }
 
     const resetErr = () => {
@@ -55,6 +58,10 @@ const Login = () => {
             })
         }, 3000)
     }
+
+    useEffect(() => {
+        if (error) toast.error(error)
+    }, [error])
 
     return (
         <Layout title={'Login Page'} pagePath={router.pathname}>

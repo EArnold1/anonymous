@@ -39,7 +39,30 @@ export const AuthProvider = ({ children }) => {
     }
 
     //login
+    const login = async (user) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
+        const body = JSON.stringify(user)
+        try {
+            const res = await axios.post(`${NEXT_URL}/api/login`, body, config);
+
+            const resData = res.data;
+
+            if (resData.data.token) {
+                getLogs()
+                router.push('/account/dashboard')
+            }
+
+        } catch (err) {
+            const errors = err.response.data
+            setError(errors.errors);
+            setTimeout(() => setError(null), 3000)
+        }
+    }
 
     // Presist login
     const getLogs = async () => {
@@ -66,7 +89,8 @@ export const AuthProvider = ({ children }) => {
             value={{
                 user,
                 error,
-                register
+                register,
+                login
             }}
         >
             {children}
