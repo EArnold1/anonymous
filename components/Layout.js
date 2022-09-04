@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 const Layout = ({ title, children, pagePath }) => {
     // const router = useRouter();
+    console.log(process.env.NEXT_PUBLIC_CLIENT_URL)
     return (
         <div>
             <Head>
