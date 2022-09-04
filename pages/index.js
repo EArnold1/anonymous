@@ -4,8 +4,6 @@ import { Text } from "@nextui-org/react";
 import { FaRocket } from 'react-icons/fa'
 import Link from "next/link";
 import About from "@/components/About";
-import { motion } from "framer-motion";
-
 
 export default function Home() {
   return (
@@ -42,27 +40,13 @@ export default function Home() {
             </Text>
 
             <Text size={"$xl"} className="my-8">
-              Anonymous is an interactive anonymous messaging app with a dare game. Create your Profile Link and Send it to all your contacts to check what do your friends think about you. With the help of Anonymous, you can send and recieve anonymous compliments easily for free!
+              Anonymous is an interactive anonymous messaging app with a dare game. Create your Profile Link and Send it to all your contacts to check what your friends think about you. With the help of Anonymous, you can send and recieve anonymous compliments easily and for free!
             </Text>
           </section>
           <section className="m-auto">
-            <motion.div
-              animate={{
-                rotate: [0, 0, 180, 360, 180, 360, 0],
-              }}
-              transition={{
-                repeatType: "reverse",
-                duration: 10,
-                delay: 5,
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatDelay: 5
-              }}
-            >
-              <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9570.PNG'}
-                className="h-full"
-                alt="message man" width={400} height={400} />
-            </motion.div>
+            <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9570.PNG'}
+              className="h-full"
+              alt="message man" width={400} height={400} />
           </section>
         </div>
         <Link href={'/auth/register'}>
