@@ -118,7 +118,7 @@ const dashboard = ({ message, url }) => {
                                         {message.text}
                                     </p>
                                     <p className="my-2">
-                                        Annonymous - [ {moment(message.date).format('LL')} ]
+                                        Anonymous - [ {moment(message.date).format('LL')} ]
                                     </p>
                                 </Card.Body>
                                 <Card.Footer className="gap-x-3 justify-between lg:justify-start">
