@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios from 'axios';
 import { API_URL } from '@/config/index';
-import cookie from 'cookie'
+import cookie from 'cookie';
+import axios from 'axios';
 
 export default async function handler(req, res) {
     if (req.method !== 'GET') {
@@ -9,7 +10,8 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: `Method ${req.method} is not allowed` })
     }
     if (!req.headers.cookie) {
-        res.status(403).json({ msg: 'Not Authorized', url: API_URL })
+        const resData = await axios.get(API_URL)
+        res.status(403).json({ msg: 'Not Authorized', url: resData.data })
         return
     }
 
