@@ -2,9 +2,12 @@ import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useTheme, Card } from "@nextui-org/react";
 import { useRouter } from "next/router"
+import { API_URL } from "@/config/index";
+import { parseCookies } from "@/helpers/index";
+import axios from 'axios';
+import MessageContainer from "@/components/MessageContainer";
 
-
-const messages = () => {
+const messages = ({ data }) => {
     const { type } = useTheme();
 
     const router = useRouter();
@@ -22,16 +25,20 @@ const messages = () => {
                         </Link>
                         {/* show if user has messages */}
                         <section className="flex gap-x-3">
-                            <Link href={'/account/dashboard'}>
-                                <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
-                                    Prev
-                                </a>
-                            </Link>
-                            <Link href={'/account/dashboard'}>
-                                <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
-                                    Next
-                                </a>
-                            </Link>
+                            {data.prevPage.page !== 0 &&
+                                <Link href={`/account/messages?page=${data.prevPage.page}`}>
+                                    <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
+                                        Prev
+                                    </a>
+                                </Link>
+                            }
+                            {data.nextPage.page !== 0 &&
+                                <Link href={`/account/messages?page=${data.nextPage.page}`}>
+                                    <a className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
+                                        Next
+                                    </a>
+                                </Link>
+                            }
                         </section>
                     </div>
                     <Card className="border border-blue-500 rounded-md my-8 hidden">
@@ -41,32 +48,42 @@ const messages = () => {
                     </Card>
                     <br />
                     <div className="my-8 grid grid-cols-1 lg:grid-cols-2 justify-between gap-3">
-                        <Card className="border-none">
-                            <Card.Header>
-                                <p>Message</p>
-                            </Card.Header>
-                            <Card.Divider />
-                            <Card.Body>
-                                <p>
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae harum est ea placeat pariatur temporibus itaque! Alias commodi neque ab doloribus, delectus possimus sed. Perspiciatis molestiae quasi suscipit! Accusantium, quos.
-                                </p>
-                                <p className="my-2">
-                                    Annonymous - [ 2022-8-15 ]
-                                </p>
-                            </Card.Body>
-                            <Card.Footer>
-                                <button
-                                    className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
-                                    Share Now
-                                </button>
-                            </Card.Footer>
-                        </Card>
+                        {data.messages.map(msg => (
+                            <MessageContainer text={msg.text} date={msg.date} key={msg._id} />
+                        ))}
                     </div>
                     <div className="border-b-2 border-cyan-300"></div>
                 </section>
             </div>
         </Layout>
     )
+}
+
+export async function getServerSideProps({ req, query: { page = 1 } }) {
+    const { token } = parseCookies(req);
+
+    const limit = 2;
+
+    try {
+        const res = await axios.get(`${API_URL}/api/messages?page=${page}&limit=${limit}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = res.data
+
+        return {
+            props: {
+                data
+            }
+        }
+    } catch (err) {
+        console.log(err)
+        return {
+            props: {}
+        }
+    }
+
 }
 
 export default messages
