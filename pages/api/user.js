@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: `Method ${req.method} is not allowed` })
     }
     if (!req.headers.cookie) {
-        res.status(403).json({ msg: 'Not Authorized' })
+        res.status(403).json({ msg: 'Not Authorized', url: API_URL })
         return
     }
 
