@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useTheme, Card, User, Badge } from "@nextui-org/react";
+import { useTheme, Card, User, Badge, Text } from "@nextui-org/react";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaMailBulk } from 'react-icons/fa'
 import DasboardBtnComp from "@/components/DasboardBtnComp";
@@ -114,12 +114,20 @@ const dashboard = ({ message, url }) => {
                                 </Card.Header>
                                 <Card.Divider />
                                 <Card.Body>
-                                    <p>
+                                    <Text h4 size={25}
+                                        css={{
+                                            color: '$primary'
+                                        }}
+                                    >
                                         {message.text}
-                                    </p>
-                                    <p className="my-2">
+                                    </Text>
+                                    <Text
+                                        css={{
+                                            color: '$neutral'
+                                        }}
+                                        className="my-2">
                                         Anonymous - [ {moment(message.date).format('LL')} ]
-                                    </p>
+                                    </Text>
                                 </Card.Body>
                                 <Card.Footer className="gap-x-3 justify-between lg:justify-start">
                                     {/* share post */}

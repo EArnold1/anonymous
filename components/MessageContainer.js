@@ -1,4 +1,4 @@
-import { useTheme, Card } from "@nextui-org/react";
+import { useTheme, Card, Text } from "@nextui-org/react";
 import moment from 'moment'
 const MessageContainer = ({ text, date }) => {
     const { type } = useTheme();
@@ -12,9 +12,13 @@ const MessageContainer = ({ text, date }) => {
                 <p>
                     {text}
                 </p>
-                <p className="my-2">
+                <Text
+                    css={{
+                        color: '$neutral'
+                    }}
+                    className="my-2">
                     Anonymous - [ {moment(date).format('LL')} ]
-                </p>
+                </Text>
             </Card.Body>
             <Card.Footer>
                 <button
