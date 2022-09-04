@@ -12,6 +12,12 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
     const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true)
+
+    const setLoadingFunc = () => {
+        setLoading(false)
+        setTimeout(() => setLoading(true), 3000)
+    }
 
     // Register
     const register = async (user) => {
@@ -58,9 +64,10 @@ export const AuthProvider = ({ children }) => {
                 getLogs()
                 router.push('/account/dashboard');
                 localStorage.setItem('auth', true)
+                setLoadingFunc()
             }
-
         } catch (err) {
+            setLoadingFunc()
             const errors = err.response.data
             setError(errors.errors);
             setTimeout(() => setError(null), 3000)
@@ -101,6 +108,7 @@ export const AuthProvider = ({ children }) => {
                 user,
                 error,
                 authenticated,
+                loading,
                 register,
                 login,
                 logout

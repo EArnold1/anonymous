@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { API_URL } from '@/config/index';
 import cookie from 'cookie';
-import axios from 'axios';
 
 export default async function handler(req, res) {
     if (req.method !== 'GET') {

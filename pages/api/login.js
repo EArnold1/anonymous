@@ -24,18 +24,19 @@ export default async function handler(req, res) {
 
     const data = await resData.json();
 
-    res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/'
-    }))
-
-    // res.json({ data })
     if (resData.ok) {
+        // set httpOnly cookie
+        res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 24 * 7,
+            path: '/'
+        }))
+
         res.status(200).json({ data })
     } else {
-        res.status(data.statusCode).json({ data })
+        const errors = data.errors[0].msg
+        res.status(401).json({ errors })
     }
 }

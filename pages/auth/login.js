@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import Link from "next/link"
-import { Input, useTheme } from "@nextui-org/react";
+import { Input, useTheme, Loading } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ import AuthContext from "context/AuthContext";
 
 
 const Login = () => {
-    const { error, login } = useContext(AuthContext);
+    const { error, login, loading } = useContext(AuthContext);
 
     const { type } = useTheme();
 
@@ -21,6 +21,8 @@ const Login = () => {
         usernameErr: 'primary',
         passwordErr: 'primary'
     })
+
+    const [loader, setLoader] = useState(false)
 
     const { usernameErr, passwordErr } = err;
 
@@ -47,9 +49,9 @@ const Login = () => {
         }
 
         login({ username, password });
-
-        setUsername('');
-        setPassword('')
+        setLoader(true)
+        // setUsername('');
+        // setPassword('')
     }
 
     const resetErr = () => {
@@ -65,8 +67,15 @@ const Login = () => {
         if (localStorage.getItem('auth')) {
             router.push('/account/dashboard')
         }
-        if (error) toast.error(error)
-    }, [error])
+        if (error) {
+            toast.error(error)
+            setLoader(false)
+        }
+
+        if (loading) {
+            setLoader(false)
+        }
+    }, [error, loading])
 
     return (
         <Layout title={'Login Page'} pagePath={router.pathname}>
@@ -95,12 +104,19 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
-                        <input type="submit"
-                            value="Login"
-                            className={`my-5 w-full py-2   rounded-md hover:bg-stone-700
+                        {
+                            loader ? (
+                                <Loading />
+                            ) : (
+                                <input type="submit"
+                                    value={'Login'}
+                                    className={`my-5 w-full py-2   rounded-md hover:bg-stone-700
                          hover:text-blue-500 hover:cursor-pointer ${type === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
-                        />
+                                />
+                            )
+                        }
+
+
                     </form>
                     <div className="my-5 text-center">
                         <p className="text-gray-400">Don't have an account?{' '}

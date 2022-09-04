@@ -11,12 +11,6 @@ export default async function handler(req, res) {
 
   const { username, email, password } = req.body;
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-
   const body = JSON.stringify({ username, email, password });
 
   const resData = await fetch(`${API_URL}/api/user`, {
@@ -29,15 +23,16 @@ export default async function handler(req, res) {
 
   const data = await resData.data;
 
-  res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 7,
-    path: '/'
-  }))
-
   if (resData.ok) {
+    // set httpOnly cookie
+    res.setHeader('Set-Cookie', cookie.serialize('token', data.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/'
+    }))
+
     res.status(200).json({ data })
   } else {
     res.status(data.statusCode).json({ data })
