@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     body,
   });
 
-  const data = await resData.data;
+  const data = await resData.json();
 
   if (resData.ok) {
     // set httpOnly cookie
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ data })
   } else {
-    res.status(data.statusCode).json({ data })
+    const errors = data.errors[0].msg
+    res.status(401).json({ errors })
   }
-
 }

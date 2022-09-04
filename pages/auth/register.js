@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link"
-import { Input, useTheme } from "@nextui-org/react";
+import { Input, useTheme, Loading } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
@@ -10,7 +10,7 @@ const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 const Register = () => {
-    const { error, register } = useContext(AuthContext);
+    const { error, register, loading } = useContext(AuthContext);
 
     const { type } = useTheme();
 
@@ -27,6 +27,8 @@ const Register = () => {
     })
 
     const { usernameErr, emailErr, passwordErr } = err;
+
+    const [loader, setLoader] = useState(false)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -59,6 +61,8 @@ const Register = () => {
         }
 
         register({ username, password, email })
+
+        setLoader(true)
     }
 
     const resetErr = () => {
@@ -75,8 +79,15 @@ const Register = () => {
         if (localStorage.getItem('auth')) {
             router.push('/account/dashboard')
         }
-        if (error) toast.error(error)
-    }, [error])
+        if (error) {
+            toast.error(error)
+            setLoader(false)
+        }
+
+        if (loading) {
+            setLoader(false)
+        }
+    }, [error, loading])
     return (
         <Layout title={'Registration Page'} pagePath={router.pathname}>
             <div className={type !== 'dark' ? 'mx-auto p-5 bg-zinc-200 text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-900 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
@@ -113,12 +124,17 @@ const Register = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
-                        <input type="submit"
-                            value="Register"
-                            className={`my-5 w-full py-2   rounded-md hover:bg-stone-700
+                        {
+                            loader ? (
+                                <Loading />
+                            ) : (
+                                <input type="submit"
+                                    value="Register"
+                                    className={`my-5 w-full py-2   rounded-md hover:bg-stone-700
                          hover:text-blue-500 hover:cursor-pointer ${type === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
-                        />
+                                />
+                            )
+                        }
                     </form>
                     <div className="my-5 text-center">
                         <p className="text-gray-400">Already have an account?{' '}
