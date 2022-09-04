@@ -41,17 +41,22 @@ const messages = ({ data }) => {
                             }
                         </section>
                     </div>
-                    <Card className="border border-blue-500 rounded-md my-8 hidden">
-                        <Card.Body>
-                            Oops! 😅 No one has sent you a message! Share your profile link and check back later again!
-                        </Card.Body>
-                    </Card>
-                    <br />
-                    <div className="my-8 grid grid-cols-1 lg:grid-cols-2 justify-between gap-3">
-                        {data.messages.map(msg => (
-                            <MessageContainer text={msg.text} date={msg.date} key={msg._id} />
-                        ))}
-                    </div>
+                    {
+                        data.messages.length === 0 ? (
+                            <Card className="border border-blue-500 rounded-md my-8">
+                                <Card.Body>
+                                    Oops! 😅 No one has sent you a message! Share your profile link and check back later again!
+                                </Card.Body>
+                            </Card>
+                        ) : (
+
+                            <div className="my-8 grid grid-cols-1 lg:grid-cols-2 justify-between gap-3">
+                                {data.messages.map(msg => (
+                                    <MessageContainer text={msg.text} date={msg.date} key={msg._id} />
+                                ))}
+                            </div>
+                        )
+                    }
                     <div className="border-b-2 border-cyan-300"></div>
                 </section>
             </div>
