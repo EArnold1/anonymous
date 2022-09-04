@@ -13,7 +13,7 @@ import Loader from "@/components/Loader";
 const messages = ({ data }) => {
     const { type } = useTheme();
 
-    const { user } = useContext(AuthContext);
+    const { user, authenticated } = useContext(AuthContext);
 
     const router = useRouter();
 
