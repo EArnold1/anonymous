@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-const Loader = () => {
+
+
+const Loader = ({ showBtn }) => {
     return (
         <Fragment>
             <img
@@ -10,11 +12,14 @@ const Loader = () => {
                 className="mx-auto"
             />
             {/* display if not authorized */}
-            <Link href={'/'}>
-                <a className="px-5 py-1 rounded-md bg-slate-500 w-full">
-                    Go Home
-                </a>
-            </Link>
+            {
+                showBtn && <Link href={'/'}>
+                    <a className="px-5 py-1 rounded-md bg-slate-500 w-full">
+                        Go Home
+                    </a>
+                </Link>
+            }
+
         </Fragment>
     );
 };

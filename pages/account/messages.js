@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useTheme, Card } from "@nextui-org/react";
@@ -6,11 +7,26 @@ import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 import axios from 'axios';
 import MessageContainer from "@/components/MessageContainer";
+import AuthContext from "context/AuthContext";
+import Loader from "@/components/Loader";
 
 const messages = ({ data }) => {
     const { type } = useTheme();
 
+    const { user } = useContext(AuthContext);
+
     const router = useRouter();
+
+
+    if (user === null) {
+        return (
+            <div className="flex h-screen">
+                <div className="m-auto">
+                    <Loader showBtn={!authenticated} />
+                </div>
+            </div>
+        )
+    }
 
     return (
         <Layout title={'Messages'} pagePath={router.pathname}>
@@ -83,9 +99,10 @@ export async function getServerSideProps({ req, query: { page = 1 } }) {
             }
         }
     } catch (err) {
-        console.log(err)
         return {
-            props: {}
+            props: {
+                data: []
+            }
         }
     }
 

@@ -22,7 +22,7 @@ const Login = () => {
         passwordErr: 'primary'
     })
 
-    const { usernameErr, emailErr, passwordErr } = err;
+    const { usernameErr, passwordErr } = err;
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -39,7 +39,6 @@ const Login = () => {
             return
         }
 
-
         if (username.match(/\s/g)) {
             toast.error('Invalid username');
             setErr({ ...err, usernameErr: 'error' })
@@ -47,7 +46,10 @@ const Login = () => {
             return
         }
 
-        login({ username, password })
+        login({ username, password });
+
+        setUsername('');
+        setPassword('')
     }
 
     const resetErr = () => {
@@ -60,6 +62,9 @@ const Login = () => {
     }
 
     useEffect(() => {
+        if (localStorage.getItem('auth')) {
+            router.push('/account/dashboard')
+        }
         if (error) toast.error(error)
     }, [error])
 

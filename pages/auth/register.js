@@ -72,6 +72,9 @@ const Register = () => {
     }
 
     useEffect(() => {
+        if (localStorage.getItem('auth')) {
+            router.push('/account/dashboard')
+        }
         if (error) toast.error(error)
     }, [error])
     return (

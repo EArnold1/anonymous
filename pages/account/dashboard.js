@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -15,17 +15,23 @@ import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
 
 const dashboard = ({ message }) => {
-    const { user } = useContext(AuthContext);
+    const { user, authenticated } = useContext(AuthContext);
 
     const { type } = useTheme()
 
     const router = useRouter();
 
+    useEffect(() => {
+        if (!localStorage.getItem('auth')) {
+            router.push('/auth/login')
+        }
+    }, []);
+
     if (user === null) {
         return (
             <div className="flex h-screen">
                 <div className="m-auto">
-                    <Loader />
+                    <Loader showBtn={!authenticated} />
                 </div>
             </div>
         )
@@ -57,7 +63,7 @@ const dashboard = ({ message }) => {
                     {/* latest message */}
                     <section className="order py-8">
                         {message.length === 0 ? (
-                            <Card className="border-none hidden">
+                            <Card className="border-none">
                                 <Card.Header>
                                     <p className="font-bold">No message yet, share your link to your friends 😉.</p>
                                 </Card.Header>
@@ -131,15 +137,18 @@ export async function getServerSideProps({ req }) {
         });
         const data = res.data
 
+        const messageData = data.message.length === 0 ? [] : data.message[0]
+
         return {
             props: {
-                message: data.message[0]
+                message: messageData
             }
         }
     } catch (err) {
-        console.log(err)
         return {
-            props: {}
+            props: {
+                message: []
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
+    const [authenticated, setAuthenticated] = useState(false);
 
     // Register
     const register = async (user) => {
@@ -27,8 +28,9 @@ export const AuthProvider = ({ children }) => {
             const resData = res.data;
 
             if (resData.data.token) {
-                getLogs()
+                getLogs();
                 router.push('/account/dashboard')
+                localStorage.setItem('auth', true)
             }
 
         } catch (err) {
@@ -54,7 +56,8 @@ export const AuthProvider = ({ children }) => {
 
             if (resData.data.token) {
                 getLogs()
-                router.push('/account/dashboard')
+                router.push('/account/dashboard');
+                localStorage.setItem('auth', true)
             }
 
         } catch (err) {
@@ -71,8 +74,8 @@ export const AuthProvider = ({ children }) => {
 
             const resData = res.data;
 
-            setUser(resData.data)
-
+            setUser(resData.data);
+            setAuthenticated(true)
         } catch (err) {
             const errors = err.response.data
             setError(errors.errors);
@@ -83,7 +86,9 @@ export const AuthProvider = ({ children }) => {
     // Logout
     const logout = async () => {
         await axios.get(`${NEXT_URL}/api/logout`);
+        localStorage.removeItem('auth')
         setUser(null)
+        setAuthenticated(false)
     }
 
     useEffect(() => {
@@ -95,6 +100,7 @@ export const AuthProvider = ({ children }) => {
             value={{
                 user,
                 error,
+                authenticated,
                 register,
                 login,
                 logout
