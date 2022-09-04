@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
             const resData = res.data;
 
             if (resData.data.token) {
+                getLogs()
                 router.push('/account/dashboard')
             }
 
@@ -38,6 +39,27 @@ export const AuthProvider = ({ children }) => {
     }
 
     //login
+
+
+    // Presist login
+    const getLogs = async () => {
+        try {
+            const res = await axios.get(`${NEXT_URL}/api/user`);
+
+            const resData = res.data;
+
+            setUser(resData.data)
+
+        } catch (err) {
+            const errors = err.response.data
+            setError(errors.errors);
+            setTimeout(() => setError(null), 3000)
+        }
+    }
+
+    useEffect(() => {
+        getLogs()
+    }, [])
 
     return (
         <AuthContext.Provider
