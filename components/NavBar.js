@@ -94,6 +94,10 @@ const NavBar = ({ pagePath }) => {
             </NavBarComp.Content>
             <NavBarComp.Collapse
                 showIn={"xs"}
+                css={{
+                    minWidth: "100%",
+                    px: "$2"
+                }}
             >
                 {
                     user !== null ? (
@@ -169,7 +173,7 @@ const NavBar = ({ pagePath }) => {
                             >
                                 <Link href={'/auth/login'}
                                 >
-                                    Dashboard
+                                    Login
                                 </Link>
                             </NavBarComp.CollapseItem>
 
@@ -180,7 +184,6 @@ const NavBar = ({ pagePath }) => {
                     color="inherit"
                     css={{
                         minWidth: "100%",
-                        px: "$2"
                     }}
                 >
                     <Link href={'/contact'}

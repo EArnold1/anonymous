@@ -94,7 +94,7 @@ const About = () => {
                 <Card className="border-none relative py-8">
                     <Card.Header>
                         <div className="absolute top-0 right-0">
-                            <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9570.PNG'}
+                            <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9747.PNG'}
                                 alt="message man" width={100} height={100} />
                         </div>
                         <Text h3

@@ -4,10 +4,9 @@ import NavBar from "./NavBar";
 import { useRouter } from "next/router";
 
 const Layout = ({ title, children, pagePath }) => {
-    const router = useRouter();
-    const screenHeight = router.pathname === '/' || router.pathname === '/account/messages' ? 'relative lg:h-full' : 'relative lg:h-screen';
+    // const router = useRouter();
     return (
-        <div className={screenHeight}>
+        <div>
             <Head>
                 <title>{title}</title>
             </Head>

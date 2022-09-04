@@ -67,7 +67,7 @@ const messages = ({ data }) => {
 export async function getServerSideProps({ req, query: { page = 1 } }) {
     const { token } = parseCookies(req);
 
-    const limit = 2;
+    const limit = 4;
 
     try {
         const res = await axios.get(`${API_URL}/api/messages?page=${page}&limit=${limit}`, {
