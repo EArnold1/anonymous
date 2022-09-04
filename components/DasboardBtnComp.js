@@ -1,10 +1,29 @@
-import { Card, useTheme } from "@nextui-org/react";
+import { useState, useEffect } from 'react';
+import { Card, useTheme, Popover, Text } from "@nextui-org/react";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaCopy, FaFacebook, FaInstagram, FaMailBulk, FaShareAlt, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import Link from "next/link";
 
-const DasboardBtnComp = () => {
-    const { type } = useTheme()
+const DasboardBtnComp = ({ user, toast }) => {
+    const { type } = useTheme();
+
+    const HOMEPAGE_URL = window.location.origin;
+    const messageText = `Hey there 👋, Send me an anonymous message with this link ${HOMEPAGE_URL}/${user.username}`
+
+    const [copy, setCopy] = useState(false);
+
+    const shareNow = () => {
+        if (navigator.share) {
+            navigator.share({ url: `${HOMEPAGE_URL}/${user.username}` })
+        }
+    }
+
+    useEffect(() => {
+        if (copy) {
+            toast.success('Link copied')
+        }
+    }, [copy])
+
     return (
         <div className="my-8">
             <Card>
@@ -16,29 +35,48 @@ const DasboardBtnComp = () => {
                             </a>
                         </Link>
                         {/* copy link */}
-                        <CopyToClipboard text="link">
+                        <CopyToClipboard text={`${HOMEPAGE_URL}/${user.username}`} onCopy={() => {
+                            setCopy(true)
+                            setTimeout(() => setCopy(false), 3000)
+                        }}>
                             <button className={`${type === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
                                 <FaCopy className="my-auto" />  Click to Copy Link
                             </button>
                         </CopyToClipboard>
                         {/* click to share */}
-                        <button className={`${type === 'dark' ? 'bg-cyan-600' : 'bg-cyan-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
+                        <button
+                            onClick={shareNow}
+                            className={`${type === 'dark' ? 'bg-cyan-600' : 'bg-cyan-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
                             <FaShareAlt className="my-auto" /> Share Profile
                         </button>
                         {/* view messages */}
-
-                        <button className={`${type === 'dark' ? 'bg-blue-600' : 'bg-blue-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
+                        <a
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${HOMEPAGE_URL}/${user.username}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className={`${type === 'dark' ? 'bg-blue-600' : 'bg-blue-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
                             <FaFacebook className="my-auto" /> Share on Facebook
-                        </button>
-                        <button className={`${type === 'dark' ? 'bg-green-600' : 'bg-green-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
+                        </a>
+                        <a
+                            href={`whatsapp://send?text=${messageText}`} data-action="share/whatsapp/share"
+                            className={`${type === 'dark' ? 'bg-green-600' : 'bg-green-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
                             <FaWhatsapp className="my-auto" /> Share on Whatsapp
-                        </button>
-                        <button className={`${type === 'dark' ? 'bg-pink-600' : 'bg-pink-200'} py-2 rounded-md px-4 justify-center flex gap-x-2 lg:col-span-2`}>
-                            <FaInstagram className="my-auto" /> Share on Instagram
-                        </button>
-                        <button className={`${type === 'dark' ? 'bg-indigo-600' : 'bg-indigo-200'} py-2 rounded-md px-4 justify-center flex gap-x-2 lg:col-span-2`}>
+                        </a>
+                        <Popover placement='top-left'>
+                            <Popover.Trigger>
+                                <button className={`${type === 'dark' ? 'bg-pink-600' : 'bg-pink-200'} py-2 rounded-md px-4 justify-center flex gap-x-2 lg:col-span-2`}>
+                                    <FaInstagram className="my-auto" /> Share on Instagram
+                                </button>
+                            </Popover.Trigger>
+                            <Popover.Content className='p-3'>
+                                <Text>Coming soon to instagram, for now just copy your link and share</Text>
+                            </Popover.Content>
+                        </Popover>
+                        <a
+                            href={`https://twitter.com/intent/tweet?text=${messageText}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className={`${type === 'dark' ? 'bg-indigo-600' : 'bg-indigo-200'} py-2 rounded-md px-4 justify-center flex gap-x-2 lg:col-span-2`}>
                             <FaTwitter className="my-auto" /> Share on Twitter
-                        </button>
+                        </a>
                     </div>
                 </Card.Body>
             </Card>
