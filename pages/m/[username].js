@@ -30,6 +30,28 @@ const MessageComp = ({ found }) => {
             return
         }
 
+        sendFunc(textField)
+        setTextField('')
+
+    }
+
+    const sendFunc = async (text) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const body = JSON.stringify({ text });
+        try {
+            const res = await axios.post(`${API_URL}/api/message/${router.query.username}`, body, config);
+            const data = res.data
+            if (data.sent && res.statusText === 'OK') {
+                toast.success(data.msg)
+            }
+        } catch (err) {
+            const errors = err.response.data
+            toast.error(errors.errors[0].msg)
+        }
     }
 
     return (
@@ -118,15 +140,12 @@ export async function getServerSideProps({ query: { username } }) {
 
         const data = await res.data;
 
-        console.log(data, res.status)
-
         return {
             props: {
                 found: data.found
             }
         }
     } catch (err) {
-        console.log(err.error)
         const errors = err.response.data
         return {
             props: {
