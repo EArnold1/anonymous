@@ -70,16 +70,9 @@ const NavBar = ({ pagePath }) => {
             </NavBarComp.Content>
             {/*  */}
             <NavBarComp.Content
-                activeColor={'primary'}
-                variant="highlight-solid-rounded"
+            // activeColor={'primary'}
+            // variant="highlight-solid-rounded"
             >
-                <Link href="/about">
-                    <NavBarComp.Link
-                        className="hidden md:flex"
-                        isActive={'/about' === pagePath}>
-                        About
-                    </NavBarComp.Link>
-                </Link>
                 <Link href="/contact">
                     <NavBarComp.Link
                         className="hidden md:flex"
