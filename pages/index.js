@@ -4,12 +4,14 @@ import { Text } from "@nextui-org/react";
 import { FaRocket } from 'react-icons/fa'
 import Link from "next/link";
 import About from "@/components/About";
+import { motion } from "framer-motion";
+
 
 export default function Home() {
   return (
     <Layout title={'Home Page'}>
       <div className="px-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mb-8">
           <section>
             <Text h1
               size={50}
@@ -44,9 +46,23 @@ export default function Home() {
             </Text>
           </section>
           <section className="m-auto">
-            <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9570.PNG'}
-              className="h-full"
-              alt="message man" width={400} height={400} />
+            <motion.div
+              animate={{
+                rotate: [0, 0, 180, 360, 180, 360, 0],
+              }}
+              transition={{
+                repeatType: "reverse",
+                duration: 10,
+                delay: 5,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatDelay: 5
+              }}
+            >
+              <Image src={'https://ershemug.sirv.com/anonymous-app/IMG_9570.PNG'}
+                className="h-full"
+                alt="message man" width={400} height={400} />
+            </motion.div>
           </section>
         </div>
         <Link href={'/auth/register'}>
