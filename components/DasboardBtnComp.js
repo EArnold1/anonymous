@@ -8,13 +8,13 @@ const DasboardBtnComp = ({ user, toast }) => {
     const { type } = useTheme();
 
     const HOMEPAGE_URL = window.location.origin;
-    const messageText = `Hey there 👋, Send me an anonymous message with this link ${HOMEPAGE_URL}/${user.username}`
+    const messageText = `Hey there 👋, Send me an anonymous message with this link ${HOMEPAGE_URL}/m/${user.username}`
 
     const [copy, setCopy] = useState(false);
 
     const shareNow = () => {
         if (navigator.share) {
-            navigator.share({ url: `${HOMEPAGE_URL}/${user.username}` })
+            navigator.share({ text: messageText })
         }
     }
 
@@ -35,7 +35,7 @@ const DasboardBtnComp = ({ user, toast }) => {
                             </a>
                         </Link>
                         {/* copy link */}
-                        <CopyToClipboard text={`${HOMEPAGE_URL}/${user.username}`} onCopy={() => {
+                        <CopyToClipboard text={`${HOMEPAGE_URL}/m/${user.username}`} onCopy={() => {
                             setCopy(true)
                             setTimeout(() => setCopy(false), 3000)
                         }}>
@@ -51,7 +51,7 @@ const DasboardBtnComp = ({ user, toast }) => {
                         </button>
                         {/* view messages */}
                         <a
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${HOMEPAGE_URL}/${user.username}`}
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${HOMEPAGE_URL}/m/${user.username}`}
                             target="_blank" rel="noopener noreferrer"
                             className={`${type === 'dark' ? 'bg-blue-600' : 'bg-blue-200'} py-2 rounded-md px-4 justify-center flex gap-x-2`}>
                             <FaFacebook className="my-auto" /> Share on Facebook

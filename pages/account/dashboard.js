@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -14,24 +14,40 @@ import Loader from "@/components/Loader";
 import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
 
-const dashboard = ({ message }) => {
+const dashboard = ({ message, url }) => {
     const { user, authenticated } = useContext(AuthContext);
 
     const { type } = useTheme()
 
     const router = useRouter();
 
+    const username = user !== null && user.username
+
+    const messageText = `Hey there 👋, Send me an anonymous message with this link ${url}/${username}`
+
+    const [copy, setCopy] = useState(false);
+
+    const shareNow = () => {
+        if (navigator.share) {
+            navigator.share({ text: messageText })
+        }
+    }
+
     useEffect(() => {
         if (!localStorage.getItem('auth')) {
             router.push('/auth/login')
         }
-    }, []);
+
+        if (copy) {
+            toast.success('Link copied')
+        }
+    }, [copy]);
 
     if (user === null) {
         return (
             <div className="flex h-screen">
                 <div className="m-auto">
-                    <Loader showBtn={!authenticated} />
+                    <Loader showBtn={authenticated} />
                 </div>
             </div>
         )
@@ -70,13 +86,18 @@ const dashboard = ({ message }) => {
                                 <Card.Divider />
                                 <Card.Footer className="gap-x-3">
                                     {/* copy link */}
-                                    <CopyToClipboard text="link">
+                                    <CopyToClipboard text={`${url}/m/${user.username}`} onCopy={() => {
+                                        setCopy(true)
+                                        setTimeout(() => setCopy(false), 3000)
+                                    }}>
                                         <button className={`${type === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} py-2 rounded-md px-4`}>
                                             Click to Copy Link
                                         </button>
                                     </CopyToClipboard>
                                     {/* click to share */}
-                                    <button className={`${type === 'dark' ? 'bg-amber-600' : 'bg-amber-200'} py-2 rounded-md px-4`}>
+                                    <button
+                                        onClick={shareNow}
+                                        className={`${type === 'dark' ? 'bg-amber-600' : 'bg-amber-200'} py-2 rounded-md px-4`}>
                                         Share now
                                     </button>
                                 </Card.Footer>
@@ -141,13 +162,15 @@ export async function getServerSideProps({ req }) {
 
         return {
             props: {
-                message: messageData
+                message: messageData,
+                url: req.headers.host
             }
         }
     } catch (err) {
         return {
             props: {
-                message: []
+                message: [],
+                url: req.headers.host
             }
         }
     }
