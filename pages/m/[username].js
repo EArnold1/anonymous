@@ -30,8 +30,6 @@ const MessageComp = ({ found }) => {
             return
         }
 
-        console.log(textField)
-
     }
 
     return (

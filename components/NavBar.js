@@ -76,7 +76,7 @@ const NavBar = ({ pagePath }) => {
                 <Link href="/contact">
                     <NavBarComp.Link
                         className="hidden md:flex"
-                        isActive={'/contact' === pagePath}>
+                    >
                         Contact
                     </NavBarComp.Link>
                 </Link>
@@ -95,38 +95,97 @@ const NavBar = ({ pagePath }) => {
             <NavBarComp.Collapse
                 showIn={"xs"}
             >
+                {
+                    user !== null ? (
+                        <>
+                            <NavBarComp.CollapseItem
+                                isActive={'/account/messages' === pagePath}
+                                activeColor={'warning'}
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                            >
+                                <Link
+                                    href="/account/messages"
+                                >
+                                    Messages
+                                </Link>
+                            </NavBarComp.CollapseItem>
+                            <NavBarComp.CollapseItem
+                                isActive={'/account/dashboard' === pagePath}
+                                activeColor={'warning'}
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                            >
+                                <Link href={'/account/dashboard'}
+                                >
+                                    Dashboard
+                                </Link>
+                            </NavBarComp.CollapseItem>
+                            <NavBarComp.CollapseItem
+                                onClick={logout}
+                                isActive
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                    color: "$error",
+                                }}
+                            >
+                                <Link href={'/'}
+                                >
+                                    <a className="px-2 bg-red-200 rounded-md">
+                                        Logout
+                                    </a>
+                                </Link>
+                            </NavBarComp.CollapseItem>
+                        </>
+
+                    ) : (
+                        <>
+                            <NavBarComp.CollapseItem
+                                isActive={'/auth/register' === pagePath}
+                                activeColor={'secondary'}
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                            >
+                                <Link
+                                    href="/auth/register"
+                                >
+                                    Register
+                                </Link>
+                            </NavBarComp.CollapseItem>
+                            <NavBarComp.CollapseItem
+                                isActive={'/auth/login' === pagePath}
+                                activeColor={'secondary'}
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                            >
+                                <Link href={'/auth/login'}
+                                >
+                                    Dashboard
+                                </Link>
+                            </NavBarComp.CollapseItem>
+
+                        </>
+                    )
+                }
                 <NavBarComp.CollapseItem
+                    color="inherit"
+                    css={{
+                        minWidth: "100%",
+                        px: "$2"
+                    }}
                 >
-                    <Link
-                        color="inherit"
-                        css={{
-                            minWidth: "100%",
-                        }}
-                        href="/account/messages"
+                    <Link href={'/contact'}
                     >
-                        Messages
-                    </Link>
-                </NavBarComp.CollapseItem>
-                <NavBarComp.CollapseItem
-                >
-                    <Link href={'/account/dashboard'}
-                        color="inherit"
-                        css={{
-                            minWidth: "100%",
-                        }}
-                    >
-                        Dashboard
-                    </Link>
-                </NavBarComp.CollapseItem>
-                <NavBarComp.CollapseItem
-                >
-                    <Link href={'/'}
-                        color="inherit"
-                        css={{
-                            minWidth: "100%",
-                        }}
-                    >
-                        Logout
+                        Contact
                     </Link>
                 </NavBarComp.CollapseItem>
             </NavBarComp.Collapse>
