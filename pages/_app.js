@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { createTheme, NextUIProvider } from "@nextui-org/react"
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { AuthProvider } from 'context/AuthContext';
 
 const lightTheme = createTheme({
   type: 'light',
@@ -19,18 +20,20 @@ const darkTheme = createTheme({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <NextThemesProvider
-      defaultTheme="system"
-      attribute="class"
-      value={{
-        light: lightTheme.className,
-        dark: darkTheme.className
-      }}
-    >
-      <NextUIProvider>
-        <Component {...pageProps} />
-      </NextUIProvider>
-    </NextThemesProvider>
+    <AuthProvider>
+      <NextThemesProvider
+        defaultTheme="system"
+        attribute="class"
+        value={{
+          light: lightTheme.className,
+          dark: darkTheme.className
+        }}
+      >
+        <NextUIProvider>
+          <Component {...pageProps} />
+        </NextUIProvider>
+      </NextThemesProvider>
+    </AuthProvider>
   )
 }
 

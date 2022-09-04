@@ -94,4 +94,12 @@ const dashboard = () => {
     )
 }
 
+
+export async function getServerSideProps({ req }) {
+    console.log(req.headers.cookie)
+    return {
+        props: {}
+    }
+}
+
 export default dashboard

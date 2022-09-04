@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link"
 import { Input, useTheme } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
+import AuthContext from "context/AuthContext";
+import { AuthProvider } from "context/AuthContext";
 
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
 const Register = () => {
+    const { error, register } = useContext(AuthContext);
+
     const { type } = useTheme();
 
     const router = useRouter();
@@ -55,7 +59,7 @@ const Register = () => {
             return
         }
 
-        console.log({ username, password, email })
+        register({ username, password, email })
     }
 
     const resetErr = () => {
@@ -68,6 +72,9 @@ const Register = () => {
         }, 3000)
     }
 
+    useEffect(() => {
+        if (error) toast.error(error)
+    }, [error])
     return (
         <Layout title={'Registration Page'} pagePath={router.pathname}>
             <div className={type !== 'dark' ? 'mx-auto p-5 bg-zinc-200 text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-900 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
