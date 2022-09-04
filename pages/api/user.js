@@ -8,6 +8,10 @@ export default async function handler(req, res) {
         res.setHeader('Allow', ['GET'])
         return res.status(405).json({ message: `Method ${req.method} is not allowed` })
     }
+    if (!req.headers.cookie) {
+        res.status(403).json({ msg: 'Not Authorized' })
+        return
+    }
 
     const { token } = cookie.parse(req.headers.cookie);
 

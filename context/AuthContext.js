@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
 
-    //register
+    // Register
     const register = async (user) => {
         const config = {
             headers: {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    //login
+    // Login
     const login = async (user) => {
         const config = {
             headers: {
@@ -80,6 +80,12 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // Logout
+    const logout = async () => {
+        await axios.get(`${NEXT_URL}/api/logout`);
+        setUser(null)
+    }
+
     useEffect(() => {
         getLogs()
     }, [])
@@ -90,7 +96,8 @@ export const AuthProvider = ({ children }) => {
                 user,
                 error,
                 register,
-                login
+                login,
+                logout
             }}
         >
             {children}
