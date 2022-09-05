@@ -1,13 +1,12 @@
-import { useRouter } from "next/router"
-
+import { Text } from '@nextui-org/react'
 const Footer = () => {
-    // const router = useRouter();
 
     return (
         <div className={`text-center mb-4`}>
-            <p className="text-xl">
-                made with ❤️ by <span className="mx-2 px-2 py-1 bg-indigo-600 rounded-md">Arnold</span>
-            </p>
+            <Text h1 size={20}>
+                contact developer {' '}
+                <a href="mailto:talk2arnoldemmanuel@gmail.com" className="text-gray-600 hover:text-gray-700 border-b-2">here</a>
+            </Text>
         </div>
     )
 }
