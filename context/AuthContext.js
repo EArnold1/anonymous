@@ -84,9 +84,8 @@ export const AuthProvider = ({ children }) => {
             setUser(resData.data);
             setAuthenticated(true)
         } catch (err) {
-            const errors = err.response.data
-            setError(errors.errors);
-            setTimeout(() => setError(null), 3000)
+            localStorage.removeItem("auth")
+            setUser(null)
         }
     }
 

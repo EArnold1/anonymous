@@ -30,6 +30,6 @@ export default async function handler(req, res) {
 
     } catch (err) {
         const errors = err.response.data
-        res.status(500).json({ errors: errors.errors[0].msg })
+        res.status(401).json({ errors: errors.errors[0].msg })
     }
 }
