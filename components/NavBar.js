@@ -34,6 +34,16 @@ const NavBar = ({ pagePath }) => {
                 variant="highlight-solid-rounded"
                 hideIn="xs"
             >
+                <Link href="/contact">
+                    <NavBarComp.Link>
+                        Contact
+                    </NavBarComp.Link>
+                </Link>
+                <Link href="#about">
+                    <NavBarComp.Link>
+                        About
+                    </NavBarComp.Link>
+                </Link>
                 {
                     user !== null ? (
                         <>
@@ -66,13 +76,6 @@ const NavBar = ({ pagePath }) => {
                         </>
                     )
                 }
-                <Link href="/contact">
-                    <NavBarComp.Link
-                        className="hidden md:flex"
-                    >
-                        Contact
-                    </NavBarComp.Link>
-                </Link>
             </NavBarComp.Content>
             {/*  */}
             <NavBarComp.Content
@@ -89,7 +92,9 @@ const NavBar = ({ pagePath }) => {
                             Logout
                         </NavBarComp.Link>
                     </Link>}
-                <ToggleTheme />
+                <NavBarComp.Link>
+                    <ToggleTheme />
+                </NavBarComp.Link>
             </NavBarComp.Content>
             <NavBarComp.Collapse
                 showIn={"xs"}

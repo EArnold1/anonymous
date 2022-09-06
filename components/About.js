@@ -2,7 +2,7 @@ import { Text, Card } from "@nextui-org/react";
 import Image from "next/image";
 const About = () => {
     return (
-        <div className='text-center my-8'>
+        <div className='text-center my-8' id="about">
             <header className="w-full lg:w-2/4 mx-auto">
                 <Text h1
                     size={40}
