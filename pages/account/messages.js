@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useTheme, Card } from "@nextui-org/react";
@@ -10,13 +10,18 @@ import MessageContainer from "@/components/MessageContainer";
 import AuthContext from "context/AuthContext";
 import Loader from "@/components/Loader";
 
-const messages = ({ data }) => {
+const messages = ({ data, token }) => {
     const { type } = useTheme();
 
     const { user, authenticated } = useContext(AuthContext);
 
     const router = useRouter();
 
+    useEffect(() => {
+        if (token === '') {
+            router.push('/auth/login')
+        }
+    }, [])
 
     if (user === null) {
         return (
@@ -95,13 +100,15 @@ export async function getServerSideProps({ req, query: { page = 1 } }) {
 
         return {
             props: {
-                data
+                data,
+                token
             }
         }
     } catch (err) {
         return {
             props: {
-                data: []
+                data: [],
+                token: ''
             }
         }
     }

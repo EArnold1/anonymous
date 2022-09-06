@@ -5,11 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import AuthContext from "context/AuthContext";
+import { parseCookies } from "@/helpers/index";
 
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
-const Register = () => {
+const Register = ({ token }) => {
     const { error, register, loading } = useContext(AuthContext);
 
     const { type } = useTheme();
@@ -76,9 +77,6 @@ const Register = () => {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('auth')) {
-            router.push('/account/dashboard')
-        }
         if (error) {
             toast.error(error)
             setLoader(false)
@@ -87,7 +85,13 @@ const Register = () => {
         if (loading) {
             setLoader(false)
         }
+
+        if (token !== '') {
+            router.push('/account/dashboard')
+        }
     }, [error, loading])
+
+
     return (
         <Layout title={'Registration Page'} pagePath={router.pathname}>
             <div className={type !== 'dark' ? 'mx-auto p-5 bg-zinc-200 text-black rounded-md w-4/5 lg:w-1/3' : 'mx-auto bg-gray-900 text-white p-5 rounded-md w-4/5 lg:w-1/3'}>
@@ -151,6 +155,15 @@ const Register = () => {
             </div>
         </Layout>
     )
+}
+
+export async function getServerSideProps({ req }) {
+    const { token } = parseCookies(req);
+    return {
+        props: {
+            token: token !== undefined ? token : ''
+        }
+    }
 }
 
 export default Register

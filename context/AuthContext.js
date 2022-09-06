@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
             if (resData.data.token) {
                 getLogs();
                 router.push('/account/dashboard')
-                localStorage.setItem('auth', true)
             }
 
         } catch (err) {
@@ -63,7 +62,6 @@ export const AuthProvider = ({ children }) => {
             if (resData.data.token) {
                 getLogs()
                 router.push('/account/dashboard');
-                localStorage.setItem('auth', true)
                 setLoadingFunc()
             }
         } catch (err) {
@@ -83,9 +81,7 @@ export const AuthProvider = ({ children }) => {
 
             setUser(resData.data);
             setAuthenticated(true)
-            localStorage.setItem('auth', true)
         } catch (err) {
-            localStorage.removeItem("auth")
             setUser(null)
         }
     }
@@ -93,7 +89,6 @@ export const AuthProvider = ({ children }) => {
     // Logout
     const logout = async () => {
         await axios.get(`${NEXT_URL}/api/logout`);
-        localStorage.removeItem('auth')
         setUser(null)
         setAuthenticated(false)
     }

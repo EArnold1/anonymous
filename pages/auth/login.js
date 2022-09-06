@@ -5,9 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import AuthContext from "context/AuthContext";
+import { parseCookies } from "@/helpers/index";
 
 
-const Login = () => {
+const Login = ({ token }) => {
     const { error, login, loading } = useContext(AuthContext);
 
     const { type } = useTheme();
@@ -64,9 +65,6 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('auth')) {
-            router.push('/account/dashboard')
-        }
         if (error) {
             toast.error(error)
             setLoader(false)
@@ -75,7 +73,12 @@ const Login = () => {
         if (loading) {
             setLoader(false)
         }
+
+        if (token !== '') {
+            router.push('/account/dashboard')
+        }
     }, [error, loading])
+
 
     return (
         <Layout title={'Login Page'} pagePath={router.pathname}>
@@ -133,6 +136,15 @@ const Login = () => {
             </div>
         </Layout>
     )
+}
+
+export async function getServerSideProps({ req }) {
+    const { token } = parseCookies(req);
+    return {
+        props: {
+            token: token !== undefined ? token : ''
+        }
+    }
 }
 
 export default Login

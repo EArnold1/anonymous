@@ -15,7 +15,7 @@ import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
 import runNotification from "notification/notification";
 
-const dashboard = ({ message, url }) => {
+const dashboard = ({ message, url, token }) => {
     const { user, authenticated } = useContext(AuthContext);
 
     // notification
@@ -40,7 +40,7 @@ const dashboard = ({ message, url }) => {
     }
 
     useEffect(() => {
-        if (!localStorage.getItem('auth')) {
+        if (token === '') {
             router.push('/auth/login')
         }
 
@@ -172,19 +172,21 @@ export async function getServerSideProps({ req }) {
         });
         const data = res.data
 
-        const messageData = data.message.length === 0 ? [] : data.message[0]
+        const messageData = data.message;
 
         return {
             props: {
                 message: messageData,
-                url: req.headers.host
+                url: req.headers.host,
+                token
             }
         }
     } catch (err) {
         return {
             props: {
                 message: [],
-                url: req.headers.host
+                url: req.headers.host,
+                token: ''
             }
         }
     }
