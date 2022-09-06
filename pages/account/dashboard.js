@@ -13,9 +13,15 @@ import { API_URL } from "@/config/index";
 import Loader from "@/components/Loader";
 import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
+import runNotification from "notification/notification";
 
 const dashboard = ({ message, url }) => {
     const { user, authenticated } = useContext(AuthContext);
+
+    // notification
+    if (user !== null) {
+        runNotification(user.username)
+    }
 
     const { type } = useTheme()
 
