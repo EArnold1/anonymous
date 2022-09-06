@@ -66,13 +66,6 @@ const NavBar = ({ pagePath }) => {
                         </>
                     )
                 }
-
-            </NavBarComp.Content>
-            {/*  */}
-            <NavBarComp.Content
-            // activeColor={'primary'}
-            // variant="highlight-solid-rounded"
-            >
                 <Link href="/contact">
                     <NavBarComp.Link
                         className="hidden md:flex"
@@ -80,6 +73,12 @@ const NavBar = ({ pagePath }) => {
                         Contact
                     </NavBarComp.Link>
                 </Link>
+            </NavBarComp.Content>
+            {/*  */}
+            <NavBarComp.Content
+            // activeColor={'primary'}
+            // variant="highlight-solid-rounded"
+            >
                 {user !== null &&
                     <Link href="/">
                         <NavBarComp.Link
