@@ -1,4 +1,4 @@
-import { useTheme, Card, Text } from "@nextui-org/react";
+import { useTheme, Card, Text, Popover } from "@nextui-org/react";
 import moment from 'moment'
 const MessageContainer = ({ text, date }) => {
     const { type } = useTheme();
@@ -21,10 +21,18 @@ const MessageContainer = ({ text, date }) => {
                 </Text>
             </Card.Body>
             <Card.Footer>
-                <button
-                    className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md' : 'px-3 py-2 bg-gray-200 rounded-md'}>
-                    Share Now
-                </button>
+                <Popover placement='top-left'>
+                    <Popover.Trigger>
+                        <button
+                            className={type === 'dark' ? 'px-3 py-2 bg-gray-700 rounded-md opacity-60' : 'px-3 py-2 bg-gray-200 rounded-md opacity-60'}>
+                            Share Now
+                        </button>
+                    </Popover.Trigger>
+                    <Popover.Content className='p-3'>
+                        <Text>Coming soon.</Text>
+                        <Text>Don't forget to share your link 😉.</Text>
+                    </Popover.Content>
+                </Popover>
             </Card.Footer>
         </Card>
     )

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Layout from "@/components/Layout"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useTheme, Card, User, Badge, Text } from "@nextui-org/react";
+import { useTheme, Card, User, Badge, Text, Popover } from "@nextui-org/react";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaMailBulk } from 'react-icons/fa'
 import DasboardBtnComp from "@/components/DasboardBtnComp";
@@ -137,9 +137,17 @@ const dashboard = ({ message, url, token }) => {
                                 </Card.Body>
                                 <Card.Footer className="gap-x-3 justify-between lg:justify-start">
                                     {/* share post */}
-                                    <button className={`${type === 'dark' ? 'bg-purple-600' : 'bg-purple-200'} py-2 rounded-md px-4`}>
-                                        Share now
-                                    </button>
+                                    <Popover placement='top'>
+                                        <Popover.Trigger>
+                                            <button className={`${type === 'dark' ? 'bg-purple-600' : 'bg-purple-200'} opacity-60 py-2 rounded-md px-4`}>
+                                                Share now
+                                            </button>
+                                        </Popover.Trigger>
+                                        <Popover.Content className='p-3'>
+                                            <Text>Coming soon.</Text>
+                                            <Text>Don't forget to share your link 😉.</Text>
+                                        </Popover.Content>
+                                    </Popover>
                                     {/* view more */}
                                     <Link href={'/account/messages'}>
                                         <a className={`${type === 'dark' ? 'bg-teal-600' : 'bg-teal-200'} py-2 rounded-md px-4 flex gap-x-2`}>
