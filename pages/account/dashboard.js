@@ -19,9 +19,9 @@ const dashboard = ({ message, url, token }) => {
     const { user, authenticated } = useContext(AuthContext);
 
     // notification
-    if (user !== null) {
-        runNotification(user.username)
-    }
+    // if (user !== null) {
+    //     runNotification(user.username)
+    // }
 
     const { type } = useTheme()
 
@@ -186,7 +186,7 @@ export async function getServerSideProps({ req }) {
             props: {
                 message: messageData,
                 url: req.headers.host,
-                token
+                token: token !== undefined ? token : ''
             }
         }
     } catch (err) {
