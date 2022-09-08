@@ -88,9 +88,15 @@ export const AuthProvider = ({ children }) => {
 
     // Logout
     const logout = async () => {
-        await axios.get(`${NEXT_URL}/api/logout`);
-        setUser(null)
-        setAuthenticated(false)
+        const res = await fetch(`${NEXT_URL}/api/logout`, {
+            method: 'POST',
+        })
+
+        if (res.ok) {
+            setUser(null)
+            setAuthenticated(false)
+            router.push('/')
+        }
     }
 
     useEffect(() => {

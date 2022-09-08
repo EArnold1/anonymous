@@ -39,7 +39,7 @@ const NavBar = ({ pagePath }) => {
                         Contact
                     </NavBarComp.Link>
                 </Link>
-                <Link href="#about">
+                <Link href="/#about">
                     <NavBarComp.Link>
                         About
                     </NavBarComp.Link>
@@ -83,15 +83,14 @@ const NavBar = ({ pagePath }) => {
             // variant="highlight-solid-rounded"
             >
                 {user !== null &&
-                    <Link href="/">
-                        <NavBarComp.Link
-                            hideIn={"xs"}
-                            className={type === 'dark' ? 'p-2 bg-red-600 rounded-2xl mx-2 hidden md:flex' : 'p-2 bg-red-100 rounded-2xl mx-2 hidden md:flex'}
-                            onClick={logout}
-                        >
-                            Logout
-                        </NavBarComp.Link>
-                    </Link>}
+                    <NavBarComp.Link
+                        hideIn={"xs"}
+                        className={type === 'dark' ? 'p-2 bg-red-600 rounded-2xl mx-2 hidden md:flex' : 'p-2 bg-red-100 rounded-2xl mx-2 hidden md:flex'}
+                        onClick={logout}
+                    >
+                        Logout
+                    </NavBarComp.Link>
+                }
                 <NavBarComp.Link>
                     <ToggleTheme />
                 </NavBarComp.Link>
