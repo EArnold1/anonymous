@@ -74,7 +74,7 @@ const Login = ({ token }) => {
             setLoader(false)
         }
 
-        if (token !== '') {
+        if (localStorage.getItem('isValid')) {
             router.push('/account/dashboard')
         }
     }, [error, loading])

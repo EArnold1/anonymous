@@ -19,9 +19,11 @@ const dashboard = ({ message, url, token }) => {
     const { user, authenticated } = useContext(AuthContext);
 
     // notification
-    // if (user !== null) {
-    //     runNotification(user.username)
-    // }
+    if (user !== null) {
+        runNotification(user.username)
+    }
+
+    // if (localStorage.getItem('isPushNotificationsEnabled') !== true)
 
     const { type } = useTheme()
 
@@ -40,7 +42,7 @@ const dashboard = ({ message, url, token }) => {
     }
 
     useEffect(() => {
-        if (token === '') {
+        if (!localStorage.getItem('isValid')) {
             router.push('/auth/login')
         }
 

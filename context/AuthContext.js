@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
 
             if (resData.data.token) {
                 getLogs();
+                localStorage.setItem('isValid', true)
                 router.push('/account/dashboard')
             }
 
@@ -61,6 +62,7 @@ export const AuthProvider = ({ children }) => {
 
             if (resData.data.token) {
                 getLogs()
+                localStorage.setItem('isValid', true)
                 router.push('/account/dashboard');
                 setLoadingFunc()
             }
@@ -94,6 +96,7 @@ export const AuthProvider = ({ children }) => {
 
         if (res.ok) {
             setUser(null)
+            localStorage.removeItem('isValid')
             setAuthenticated(false)
             router.push('/')
         }

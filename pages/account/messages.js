@@ -18,7 +18,7 @@ const messages = ({ data, token }) => {
     const router = useRouter();
 
     useEffect(() => {
-        if (token === '') {
+        if (!localStorage.getItem('isValid')) {
             router.push('/auth/login')
         }
     }, [])
