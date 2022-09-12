@@ -21,7 +21,7 @@ const MessageComp = ({ found }) => {
             return
         }
 
-        if (textField.length < 10) {
+        if (textField.length < 5) {
             toast.error('Message is too short');
             return
         }
