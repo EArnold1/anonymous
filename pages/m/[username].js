@@ -25,7 +25,8 @@ const MessageComp = ({ found }) => {
             toast.error('Message is too short');
             return
         }
-        if (textField.replace(/\s/g, '').length < 10) {
+
+        if (textField.replace(/\s/g, '').length < 5) {
             toast.error('Invalid message');
             return
         }
