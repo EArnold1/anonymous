@@ -83,6 +83,7 @@ export const AuthProvider = ({ children }) => {
 
             setUser(resData.data);
             setAuthenticated(true)
+            localStorage.setItem('isValid', true)
         } catch (err) {
             setUser(null)
             localStorage.removeItem('isValid')
