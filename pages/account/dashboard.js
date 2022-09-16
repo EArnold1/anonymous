@@ -15,7 +15,7 @@ import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
 import runNotification from "notification/notification";
 
-const dashboard = ({ message, url, token }) => {
+const dashboard = ({ message, url }) => {
     const { user, authenticated } = useContext(AuthContext);
 
     // notification

@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
             setAuthenticated(true)
         } catch (err) {
             setUser(null)
+            localStorage.removeItem('isValid')
         }
     }
 
