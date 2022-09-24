@@ -12,7 +12,7 @@ const notfound = () => {
             </Head>
 
             <div className="flex h-screen">
-                <div className="my-auto md:m-auto">
+                <div className="m-auto">
                     <Card className="border-none p-2">
                         <Card.Header className="flex justify-end">
                             <ToggleTheme />
