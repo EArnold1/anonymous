@@ -31,7 +31,7 @@ const dashboard = ({ message, url }) => {
 
     const username = user !== null && user.username
 
-    const messageText = `Hey there 👋, Send me an anonymous message with this link ${url}/${username}`
+    const messageText = `Hey there 👋, Send me an anonymous message with this link ${url}/m/${username}`
 
     const [copy, setCopy] = useState(false);
 
