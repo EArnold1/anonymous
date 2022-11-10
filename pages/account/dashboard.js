@@ -14,6 +14,8 @@ import Loader from "@/components/Loader";
 import { parseCookies } from "@/helpers/index";
 import moment from 'moment'
 import runNotification from "notification/notification";
+import { toPng } from 'html-to-image';
+import download from 'downloadjs';
 
 const dashboard = ({ message, url }) => {
     const { user, authenticated } = useContext(AuthContext);
@@ -40,6 +42,19 @@ const dashboard = ({ message, url }) => {
             navigator.share({ text: messageText })
         }
     }
+
+    const getImage = async () => {
+        const node = document.getElementById('share-image');
+        try {
+            const dataUrl = await toPng(node);
+            const date = moment().format('LTS').replace(/\:/g, '')
+
+            download(dataUrl, date.replace(/\s/g, ''));
+        } catch (err) {
+            toast.error('Something went wrong, try again.');
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         if (!localStorage.getItem('isValid')) {
@@ -111,7 +126,7 @@ const dashboard = ({ message, url }) => {
                                 </Card.Footer>
                             </Card>
                         ) : (
-                            <Card className="border-none">
+                            <Card className="border-none" id="share-image">
                                 <Card.Header>
                                     <div className="relative mt-2">
                                         <p>Message</p>
@@ -134,26 +149,21 @@ const dashboard = ({ message, url }) => {
                                             color: '$neutral'
                                         }}
                                         className="my-2">
-                                        Anonymous - [ {moment(message.date).format('LL')} ]
+                                        Anonymous - {moment(message.date).format('LL')}
                                     </Text>
                                 </Card.Body>
                                 <Card.Footer className="gap-x-3 justify-between lg:justify-start">
                                     {/* share post */}
-                                    <Popover placement='top'>
-                                        <Popover.Trigger>
-                                            <button className={`${type === 'dark' ? 'bg-purple-600' : 'bg-purple-200'} opacity-60 py-2 rounded-md px-4`}>
-                                                Share now
-                                            </button>
-                                        </Popover.Trigger>
-                                        <Popover.Content className='p-3'>
-                                            <Text>Coming soon.</Text>
-                                            <Text>Don't forget to share your link 😉.</Text>
-                                        </Popover.Content>
-                                    </Popover>
+                                    <button className={`${type === 'dark' ? 'bg-purple-600' : 'bg-purple-200'} py-2 rounded-md px-4`}
+                                        onClick={getImage}
+                                    >
+                                        Share
+                                    </button>
+
                                     {/* view more */}
                                     <Link href={'/account/messages'}>
                                         <a className={`${type === 'dark' ? 'bg-teal-600' : 'bg-teal-200'} py-2 rounded-md px-4 flex gap-x-2`}>
-                                            <FaMailBulk className="my-auto" /> View Messages
+                                            <FaMailBulk className="my-auto" /> Messages
                                         </a>
                                     </Link>
                                 </Card.Footer>

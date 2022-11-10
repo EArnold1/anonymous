@@ -9,6 +9,7 @@ import axios from 'axios';
 import MessageContainer from "@/components/MessageContainer";
 import AuthContext from "context/AuthContext";
 import Loader from "@/components/Loader";
+import { ToastContainer } from "react-toastify";
 
 const messages = ({ data, token }) => {
     const { type } = useTheme();
@@ -36,6 +37,7 @@ const messages = ({ data, token }) => {
     return (
         <Layout title={'Messages'} pagePath={router.pathname}>
             <div className="px-3">
+                <ToastContainer theme="colored" />
                 <h2 className="text-2xl">My Messages</h2>
                 <section className="my-20">
                     <div className="flex justify-between">
@@ -73,7 +75,7 @@ const messages = ({ data, token }) => {
 
                             <div className="my-8 grid grid-cols-1 lg:grid-cols-2 justify-between gap-3">
                                 {data.messages.map(msg => (
-                                    <MessageContainer text={msg.text} date={msg.date} key={msg._id} />
+                                    <MessageContainer text={msg.text} date={msg.date} key={msg._id} id={msg._id} />
                                 ))}
                             </div>
                         )
